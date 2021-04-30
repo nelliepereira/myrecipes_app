@@ -1,25 +1,23 @@
-class recipecl {
-  int catid1;
+class recipecls {
+  String catid1;
   String catname1;
-  List subcatname1;
-  int recipeid1;
+  String recipeid1;
   String recipename1;
   List recipeimage1;
   String recipeingred1;
   List recipesteps1;
-  int reciperating1;
+  String reciperating1;
   String recipecalorie1;
   String recipeservings1;
   String recipetime1;
   List recipeauthor1;
 
-  recipecl({this.catid1, this.catname1,this.subcatname1,this.recipeauthor1, this.recipecalorie1,this.recipeid1,this.recipeimage1,
+  recipecls({this.catid1, this.catname1,this.recipeauthor1, this.recipecalorie1,this.recipeid1,this.recipeimage1,
     this.recipeingred1,this.recipename1, this.reciperating1,this.recipeservings1,this.recipesteps1,this.recipetime1});
 
-  recipecl.fromJson(Map<String, dynamic> json) {
+  recipecls.fromJson(Map<String, dynamic> json) {
     catid1 = json['catId'];
     catname1 = json['catName'];
-    subcatname1  =json['subCatName'];
     recipeauthor1  =json['recipeAuthor'];
     recipecalorie1  =json['recipeCalorie'];
     recipeid1  =json['recipeId'];
@@ -36,7 +34,6 @@ class recipecl {
     final Map<String,dynamic> recipe2 = new Map<String,dynamic>();
     recipe2['catID']= this.catid1;
     recipe2['catName']= this.catname1;
-    recipe2['subCatName']= this.subcatname1;
     recipe2['recipeAuthor']= this.recipeauthor1;
     recipe2['recipeCalorie']= this.recipecalorie1;
     recipe2['recipeId']= this.recipeid1;

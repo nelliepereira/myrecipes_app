@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:myrecipes_app/test.dart';
 import 'package:myrecipes_app/widgets/banner.dart';
 import 'package:myrecipes_app/widgets/drawerMenu.dart';
+import 'package:myrecipes_app/widgets/midview.dart';
 import 'package:myrecipes_app/widgets/recipeweek.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:share/share.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class homepage extends StatefulWidget {
   @override
@@ -11,9 +16,15 @@ class homepage extends StatefulWidget {
 
 class _homepageState extends State<homepage> {
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    upload();
+  }
+  Future upload() async {
+    await Firebase.initializeApp();
+  }
+    Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: context.isMobile
           ? AppBar(
         //leading: Icon(Icons.menu, color: Colors.black),
@@ -63,17 +74,24 @@ class _homepageState extends State<homepage> {
             Container(
               child: banner(),
             ),
-            Text('Favourite Recipes'),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 15,),
+
             Container(
-              height: context.screenHeight * 0.28,
+              height: context.screenHeight * 0.5,
               //color: Colors.brown[200],
-              child: midview(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Popular Recipes' ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  midview(),
+                ],
+              ),
             ),
             SizedBox(
-              height: 10,
+              height: 15,
             ),
             Text('Recipes of the Week'),
             VxDevice(
@@ -81,16 +99,17 @@ class _homepageState extends State<homepage> {
                   color: Colors.brown[100],
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [weekstarter(), weekmain(), weekdessert()],
+                    children: [starrecipe()],
                   ),
                 ),
                 web: Container(
                   color: Colors.brown[100],
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [weekstarter(), weekmain(), weekdessert()],
+                    children: [starrecipe()],
                   ),
                 )),
+
 
           ],
         ),

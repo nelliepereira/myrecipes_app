@@ -31,11 +31,12 @@ class welcomepg extends StatelessWidget {
                   padding: const EdgeInsets.all(2.0),
                   child: TextFormField(
                     textAlign: TextAlign.center,
-                    cursorColor: Colors.grey[200],
+                    readOnly: false,
+                    cursorColor: Colors.brown,
                     decoration: InputDecoration(
                       disabledBorder: InputBorder.none,
                       border: InputBorder.none,
-                      suffixIcon: Icon(Icons.search, color: Colors.brown[200],),
+                      suffixIcon: Icon(Icons.search, color: Colors.brown,),
                       hintText: 'What do you fancy today?', alignLabelWithHint: true,
                     ),
                   ),
@@ -49,7 +50,7 @@ class welcomepg extends StatelessWidget {
                 decoration: TextDecoration.underline,
                 shadows: [
                   Shadow(
-                      color: Colors.black, blurRadius: 4, offset: Offset(4,4),
+                      color: Colors.black, blurRadius: 3, offset: Offset(3,4),
                   ),
                 ],
                 letterSpacing: 3.0),),
@@ -62,7 +63,7 @@ class welcomepg extends StatelessWidget {
                     width: context.isMobile? 150: 200,
                   decoration: BoxDecoration(color: Colors.white,
                       borderRadius: BorderRadius.only(topLeft: Radius.elliptical(30, 30), bottomRight: Radius.elliptical(30, 30))),
-                  child: Center(child: Text('Login', style: TextStyle(color: Colors.brown, fontWeight: FontWeight.bold),)),
+                  child: Center(child: Text('Login', style: TextStyle(color: Colors.brown,letterSpacing: 2),)),
                 ).objectCenter(),
                   onPressed: (){
                     Navigator.push(context, MaterialPageRoute(builder: (_) => homepage()));
