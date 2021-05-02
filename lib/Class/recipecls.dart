@@ -32,7 +32,7 @@ class recipecls {
 
   Map<String,dynamic> toJson(){
     final Map<String,dynamic> recipe2 = new Map<String,dynamic>();
-    recipe2['catID']= this.catid1;
+    recipe2['catId']= this.catid1;
     recipe2['catName']= this.catname1;
     recipe2['recipeAuthor']= this.recipeauthor1;
     recipe2['recipeCalorie']= this.recipecalorie1;

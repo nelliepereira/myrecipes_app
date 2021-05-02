@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:myrecipes_app/Class/categorycls.dart';
 import 'package:myrecipes_app/listviewpg.dart';
 import 'package:myrecipes_app/test.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'dart:ui';
 
 class titlebar extends StatelessWidget {
@@ -247,33 +247,31 @@ class _drawermenubarState extends State<drawermenubar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 45,
-      color: Colors.grey[200],
+      height: 50,
+      color: Colors.brown[100],
       child: StreamBuilder(
         stream: cattype.snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
-            List<categorycls> catlist  = snapshot.data.docs.map((e) => categorycls.fromJson(e.data())).toList();
+        builder: (context, AsyncSnapshot<QuerySnapshot>snapshot){
            if(snapshot.hasData) {
-             return Container(
-               //height: 600,
-               child: ListView.builder(
-                   shrinkWrap: true,
-                   scrollDirection: Axis.horizontal,
-                   itemCount: catlist.length,
-                   itemBuilder: (context,index){
-                     return InkWell(
-                       onTap: () {
-                         //Navigator.push(context, MaterialPageRoute(builder: (_) => listviewpg(catname1: catlist[index].catname1)));
-                         Navigator.push(context, MaterialPageRoute(builder: (_) => test()));
-                       },
-                       child: Padding(
-                         padding: const EdgeInsets.all(8.0),
-                         child: VxBox(child: catlist[index].catname1.text.makeCentered()).alignCenterLeft.gray200.
-                         height(context.screenHeight*0.19).width(context.screenWidth*0.15).border(color: Colors.black,width: 0.4).roundedLg.make().p4(),
-                       ),
-                     );
-                   } ),
-             );
+             List<categorycls> catlist  = snapshot.data.docs.map((e) => categorycls.fromJson(e.data())).toList();
+             return ListView.builder(
+                 shrinkWrap: true,
+                 scrollDirection: Axis.horizontal,
+                 itemCount: catlist.length,
+                // itemCount: snapshot.data.docs.length,
+                 itemBuilder: (context,index){
+                   return InkWell(
+                     onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => listviewpg(catname2: catlist[index].catname1,)));
+                       //Navigator.push(context, MaterialPageRoute(builder: (_) => test()));
+                     },
+                     child: Padding(
+                       padding: const EdgeInsets.all(8.0),
+                       child: VxBox(child: catlist[index].catname1.text.makeCentered()).alignCenterLeft.
+                       height(context.screenHeight*0.19).width(context.screenWidth*0.15).border(color: Colors.black,width: 0.4).roundedLg.make().p4(),
+                     ),
+                   );
+                 } );
            }
            else {
             return CircularProgressIndicator();

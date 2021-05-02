@@ -16,7 +16,7 @@ class categorycls {
 
   Map<String,dynamic> toJson(){
     final Map<String,dynamic> data2 = new Map<String,dynamic>();
-    data2['catID']= this.catid1;
+    data2['catId']= this.catid1;
     data2['catName']= this.catname1;
 
 

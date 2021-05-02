@@ -77,12 +77,10 @@ class _homepageState extends State<homepage> {
             SizedBox(height: 15,),
 
             Container(
-              height: context.screenHeight * 0.5,
-              //color: Colors.brown[200],
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Popular Recipes' ),
+                  Text('Popular Recipes',style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold) ),
                   SizedBox(
                     height: 8,
                   ),
@@ -90,27 +88,48 @@ class _homepageState extends State<homepage> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 15,
-            ),
-            Text('Recipes of the Week'),
-            VxDevice(
-                mobile: Container(
+
+             Container(
+               height: 370,
                   color: Colors.brown[100],
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [starrecipe()],
+                  child: context.isMobile?
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text('Recipe of the Week',style: TextStyle(fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
+                      starrecipe(),
+                     ],
+
+                  ): Row(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('Recipe of the Week',style: TextStyle(fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
+                          starrecipe(),
+                        ],
+
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('Do you want to share your secret recipe',style: TextStyle(fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
+                          secretadd(),
+                        ],
+
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('About us',style: TextStyle(fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
+                          about(),
+                        ],
+
+                      ),
+
+                    ],
                   ),
                 ),
-                web: Container(
-                  color: Colors.brown[100],
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [starrecipe()],
-                  ),
-                )),
-
-
           ],
         ),
       ),

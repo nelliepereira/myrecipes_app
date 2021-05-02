@@ -15,7 +15,7 @@ class welcomepg extends StatelessWidget {
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
-            Image.network('https://www.eatwell101.com/wp-content/uploads/2020/01/Oven-Baked-Chicken-Bites-recipe-6.jpg',
+            Image.network('https://image.freepik.com/free-photo/ketogenic-low-carbs-diet_155003-32683.jpg',
               height: context.screenHeight, width: context.screenWidth, fit: BoxFit.cover,
             ).opacity(value: 0.7),
             Padding(
@@ -44,13 +44,13 @@ class welcomepg extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top:250.0),
+              padding: const EdgeInsets.only(top:260.0),
               child: Text('Secret Recipes',
                 style: TextStyle(fontSize: 35,color: Colors.white, fontWeight: FontWeight.bold,
-                decoration: TextDecoration.underline,
+                //decoration: TextDecoration.underline,
                 shadows: [
                   Shadow(
-                      color: Colors.black, blurRadius: 3, offset: Offset(3,4),
+                      color: Colors.black, blurRadius: 8, offset: Offset(4,4),
                   ),
                 ],
                 letterSpacing: 3.0),),

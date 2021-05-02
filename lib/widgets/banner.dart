@@ -25,7 +25,7 @@ class banner extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               enableInfiniteScroll: true,
               initialPage: 0,
-              viewportFraction: 0.8,
+              viewportFraction: 0.9,
               reverse: false,
               enlargeCenterPage: true,
               isFastScrollingEnabled: false,

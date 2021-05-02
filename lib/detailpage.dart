@@ -1,25 +1,24 @@
 import 'dart:html';
-import 'dart:typed_data';
 import 'package:flutter/rendering.dart';
+import 'package:myrecipes_app/Class/recipecls.dart';
 import 'package:myrecipes_app/widgets/drawerMenu.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:share/share.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'dart:ui';
 
 class recipepg extends StatefulWidget {
+  final recipecls recipeobj;
+  recipepg(this.recipeobj);
+
   @override
   _recipepgState createState() => _recipepgState();
 }
 
 class _recipepgState extends State<recipepg> {
   final _screenshotctrl = ScreenshotController();
-
+  int btmindex=0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,12 +61,11 @@ class _recipepgState extends State<recipepg> {
         child: Screenshot(
           controller: _screenshotctrl,
           child: Container(
-            //height: context.screenHeight,
             decoration: BoxDecoration(),
             child: Column(children: [
               VxDevice(mobile: SizedBox(), web: titlebar()),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(5.0),
                 child: Container(
                   color: Colors.grey[100],
                   alignment: Alignment.center,
@@ -76,11 +74,7 @@ class _recipepgState extends State<recipepg> {
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
-                        child: Image.asset(
-                          'Assets/Recipe1.jpg',
-                          height: context.isMobile ? 250 : 350,
-                          width: context.isMobile ? 250 : 350,
-                        ),
+                        child: Image.network(widget.recipeobj.recipeimage1[0], height: 200, width: 200, fit: BoxFit.fitWidth,),
                       ),
                       SizedBox(
                           height: 10,
@@ -95,22 +89,21 @@ class _recipepgState extends State<recipepg> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           CircleAvatar(
-                            backgroundImage: AssetImage('Assets/yoga1.jpg'),
+                            backgroundImage: NetworkImage(widget.recipeobj.recipeauthor1[1]),
                             radius: 30,
                           ),
                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Recipe Name:'),
-                              Text('Recipe by:'),
-                              Text('Ratings'),
+                              Text(widget.recipeobj.recipename1,style: TextStyle(fontWeight: FontWeight.bold),),
+                              Text('Recipe by:  ' + widget.recipeobj.recipeauthor1[0]),
                             ],
                           ),
                         ],
                       ),
                       SizedBox(height: 20),
                       Container(
-                        height:
-                        context.isMobile ? 900 : context.screenHeight,
+                        height: context.isMobile ? 600 : context.screenHeight,
                         width: context.screenWidth,
                         decoration: BoxDecoration(
                             color: Colors.brown[200],
@@ -121,10 +114,35 @@ class _recipepgState extends State<recipepg> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(height: 2),
-                              Text('Cooking Time:'),
+                              Text('Cooking Time:  ' + widget.recipeobj.recipetime1),
                               SizedBox(height: 10),
+                              Text('Servings:  ' +
+                                widget.recipeobj.recipeservings1,
+                                softWrap: true,
+                              ),
+
+                              SizedBox(height: 15,),
+                              Text('Ingredients', style: TextStyle(fontStyle: FontStyle.italic),),
                               Text(
-                                'Instructions:',
+                                widget.recipeobj.recipeingred1,textAlign: TextAlign.justify,
+                              ),
+                              SizedBox(height: 20,),
+                              Text('1.  ' + widget.recipeobj.recipesteps1[0],
+                                softWrap: true,textAlign: TextAlign.justify,
+                              ),
+                              SizedBox(height: 10,),
+                              Text('2.  ' +
+                                  widget.recipeobj.recipesteps1[1],textAlign: TextAlign.justify,
+                                softWrap: true,
+                              ),
+                              SizedBox(height: 10,),
+                              Text('3.  ' +
+                                  widget.recipeobj.recipesteps1[2],textAlign: TextAlign.justify,
+                                softWrap: true,
+                              ),
+                              SizedBox(height: 10,),
+                              Text('4.  ' +
+                                  widget.recipeobj.recipesteps1[3],textAlign: TextAlign.justify,
                                 softWrap: true,
                               ),
                             ],
@@ -136,13 +154,12 @@ class _recipepgState extends State<recipepg> {
                       : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Image.asset(
-                        'Assets/Recipe1.jpg',
-                        height: context.isMobile ? 250 : 500,
-                        width: context.isMobile ? 250 : 500,
+                      ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        child: Image.network(widget.recipeobj.recipeimage1[0], height: 350, width: 350, fit: BoxFit.fitWidth,),
                       ),
                       SizedBox(
-                          height: context.screenHeight - 80,
+                          height: context.screenHeight,
                           child: Container(
                             decoration: BoxDecoration(
                               border: Border(
@@ -154,15 +171,14 @@ class _recipepgState extends State<recipepg> {
                           Row(
                             children: [
                               CircleAvatar(
-                                backgroundImage: AssetImage('Assets/yoga1.jpg'),
+                                backgroundImage: NetworkImage(widget.recipeobj.recipeauthor1[1]),
                                 radius: 30,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Recipe Name:'),
-                                  Text('Recipe by:'),
-                                  Text('Ratings'),
+                                  Text(widget.recipeobj.recipename1,style: TextStyle(fontWeight: FontWeight.bold),),
+                                  Text('Recipe by:  ' + widget.recipeobj.recipeauthor1[0]),
                                 ],
                               ),
                             ],
@@ -173,9 +189,7 @@ class _recipepgState extends State<recipepg> {
                             children: [
                               SizedBox(height: 10),
                               Container(
-                                height: context.isMobile
-                                    ? 900
-                                    : context.screenHeight,
+                                height: 500,
                                 width: context.screenWidth * 0.5,
                                 decoration: BoxDecoration(
                                     color: Colors.brown[200],
@@ -188,12 +202,38 @@ class _recipepgState extends State<recipepg> {
                                     CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(height: 2),
-                                      Text('Cooking Time:'),
+                                      Text('Cooking Time:  ' + widget.recipeobj.recipetime1),
                                       SizedBox(height: 10),
-                                      Text(
-                                        'Instructions:',
+                                      Text('Servings:  ' +
+                                          widget.recipeobj.recipeservings1,
                                         softWrap: true,
                                       ),
+
+                                      SizedBox(height: 15,),
+                                      Text('Ingredients', style: TextStyle(fontStyle: FontStyle.italic),),
+                                      Text(
+                                        widget.recipeobj.recipeingred1,textAlign: TextAlign.justify,
+                                      ),
+                                      SizedBox(height: 20,),
+                                      Text('1.  ' + widget.recipeobj.recipesteps1[0],
+                                        softWrap: true,textAlign: TextAlign.justify,
+                                      ),
+                                      SizedBox(height: 10,),
+                                      Text('2.  ' +
+                                          widget.recipeobj.recipesteps1[1],textAlign: TextAlign.justify,
+                                        softWrap: true,
+                                      ),
+                                      SizedBox(height: 10,),
+                                      Text('3.  ' +
+                                          widget.recipeobj.recipesteps1[2],textAlign: TextAlign.justify,
+                                        softWrap: true,
+                                      ),
+                                      SizedBox(height: 10,),
+                                      Text('4.  ' +
+                                          widget.recipeobj.recipesteps1[3],textAlign: TextAlign.justify,
+                                        softWrap: true,
+                                      ),
+                                      SizedBox(height: 10,),
                                     ],
                                   ),
                                 ),
@@ -219,9 +259,32 @@ class _recipepgState extends State<recipepg> {
         child: Icon(Icons.share),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      /*bottomNavigationBar: context.isMobile?
-      BottomNavigationBar(
-          items:): null,*/
+     bottomNavigationBar: BottomNavigationBar(
+       iconSize: 15,
+       currentIndex: btmindex,
+       backgroundColor: Colors.grey[200],
+       selectedFontSize: 15,
+       unselectedFontSize: 10,
+       items: [
+
+         BottomNavigationBarItem(
+           label: 'Home',
+           icon: InkWell(
+             onTap: (){
+             },
+
+               child: Icon(Icons.home,)),
+         ),
+         BottomNavigationBarItem(
+           label: 'Favourite',
+           icon: Icon(CupertinoIcons.heart_solid),
+         ),
+         BottomNavigationBarItem(
+           label: 'To Try List',
+           icon: Icon(Icons.list_alt ),
+         ),
+       ],
+     ),
     );
   }
 
